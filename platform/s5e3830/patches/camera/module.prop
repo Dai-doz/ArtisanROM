@@ -1,0 +1,4 @@
+id=camera
+name=Camera patches
+author=salvogiangri, furbanoramos21
+description=Adds required camera-related libraries and files to work dir.
