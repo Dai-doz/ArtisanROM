@@ -111,23 +111,23 @@ jobs:
           BUILD_TYPE: ${{ github.event.inputs.build_type }}
         run: |
 
-        - name: "Upload flasheable zip to Github Artifact"
-          uses: actions/upload-artifact@v7
-          with:
+      - name: "Upload flasheable zip to Github Artifact"
+        uses: actions/upload-artifact@v7
+        with:
             path: out/ArtisanROM_*${{ github.event.inputs.device }}*.zip
             archive: false
             continue-on-error: true
 
-        - name: "Upload target_files.zip to Github Artifact"
-          uses: actions/upload-artifact@v7
-          with:
+      - name: "Upload target_files.zip to Github Artifact"
+        uses: actions/upload-artifact@v7
+        with:
             path: out/${{ github.event.inputs.device }}_*-target_files.zip
             archive: false
 
-        - name: "Notify Telegram Channel"
-          if: ${{ github.event.inputs.notify_telegram_bot == 'true' }}
-          uses: appleboy/telegram-action@master
-          with:
+      - name: "Notify Telegram Channel"
+        if: ${{ github.event.inputs.notify_telegram_bot == 'true' }}
+        uses: appleboy/telegram-action@master
+        with:
             to: ${{ secrets.TELEGRAM_CHAT_ID }}
             token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
             message: |
