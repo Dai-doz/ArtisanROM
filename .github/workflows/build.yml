@@ -110,7 +110,6 @@ jobs:
           RELEASE_REPO: "ArtisanROM/rom_resources"
           BUILD_TYPE: ${{ github.event.inputs.build_type }}
         run: |
-         
          mkdir -p split_tmp
 
           for file in out/*.zip; do
