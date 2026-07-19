@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="config_defaultAugmentedAutofillService">com.google.android.as/com.google.android.apps.miphone.aiai.app.AiAiAugmentedAutofillService</string>
+    <string name="config_defaultContentCaptureService">com.google.android.as/com.google.android.apps.miphone.aiai.app.AiAiContentCaptureService</string>
+    <string name="config_defaultTextClassifierPackage">com.google.android.as</string>
+    <string name="config_mainBuiltInDisplayCutout">M62.05,0l-2.7,0l-2.7,0l-1.4,0.1L53.95,0.2l-1.3,0.2l-1.3,0.2L49.95,0.9l-1.3,0.4l-1.3,0.5l-1.2,0.6L44.95,3 l-1.1,0.7l-1,0.8l-1,0.9l-0.9,1l-0.8,1l-0.7,1.1l-0.7,1.2l-0.6,1.2l-0.5,1.3l-0.4,1.3l-0.4,1.3l-0.5,2.3l-0.4,2.3l-0.4,2.3L34.95,23.9 l-0.6,2.3l-0.7,2.2l-0.4,1.1L32.95,30.6l-0.5,1.1L31.95,32.7c-3.5,7.2-9.3,13.1-16.6,16.6c-17.7,8.5-38.9,1.1-47.4-16.6l-0.5-1.1 l-0.5-1.1l-0.4-1.1l-0.4-1.1l-0.7-2.2l-0.6-2.3l-0.5-2.3l-0.4-2.3l-0.4-2.3l-0.5-2.3l-0.4-1.3l-0.4-1.3L-38.15,11l-0.6-1.2l-0.7-1.2 L-40.05,7.5l-0.8-1l-0.9-1l-1-0.9l-1-0.8L-44.95,3l-1.2-0.6l-1.2-0.6l-1.3-0.5l-1.3-0.4l-1.3-0.3L-52.55,0.4L-53.95,0.2L-55.25,0.1L-56.65,0L-59.35,0 L-62.05,0Z</string>
+    <string name="config_mms_user_agent">Android-Mms/0.1</string>
+    <string name="config_mms_user_agent_profile_url">http://www.google.com/oha/rdf/ua-profile-kila.xml</string>
+    <string name="config_qualified_networks_service_package">com.android.phone</string>
+    <string name="config_wallpaperCropperPackage">com.android.wallpaperpicker</string>
+    <string name="config_wifi_tcp_buffers">1730560,3461120,6922240,524288,1048576,4525824</string>
+    <string name="config_wlan_data_service_class">com.mediatek.internal.telephony.data.IwlanDataService</string>
+    <string name="config_wlan_data_service_package">com.android.phone</string>
+    <string name="config_wlan_network_service_class">com.mediatek.internal.telephony.IWlanNetworkService</string>
+    <string name="config_wlan_network_service_package">com.android.phone</string>
+</resources>
