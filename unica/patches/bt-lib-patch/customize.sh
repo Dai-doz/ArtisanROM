@@ -32,5 +32,3 @@ fi
 # After: [b #0xbd260]
 HEX_PATCH "$WORK_DIR/system/system/lib64/libbluetooth_jni.so" \
     "2897773948050037" "289777392a000014" || \
-HEX_PATCH "$WORK_DIR/system/system/lib64/libbluetooth_jni.so" \
-    "2897673948050037" "289767392a000014"
