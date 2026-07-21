@@ -1,0 +1,4 @@
+id=noaod
+name=No Always On Display
+author=7jari
+description=Replaces AODService with ClockPack if target device doesn't support AOD.
