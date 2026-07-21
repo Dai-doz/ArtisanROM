@@ -102,7 +102,7 @@ jobs:
           source ./buildenv.sh ${{ matrix.target }}
           ./scripts/make_rom.sh 
           
-      - name: Upload to Pixeldrain, GitHub Release, Split, XML
+      - name: Upload to Gofile, GitHub Release, Split, XML
         if: github.event_name == 'workflow_dispatch'
         env:
           PIXELDRAIN_API_KEY: ${{ secrets.PD_API }}
