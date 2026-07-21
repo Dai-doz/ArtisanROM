@@ -102,10 +102,9 @@ jobs:
           source ./buildenv.sh ${{ matrix.target }}
           ./scripts/make_rom.sh 
           
-      - name: Upload to Pixeldrain, GitHub Release, Split, XML
+      - name: Upload to Gofile, GitHub Release, Split, XML
         if: github.event_name == 'workflow_dispatch'
         env:
-          PIXELDRAIN_API_KEY: ${{ secrets.PD_API }}
           GH_TOKEN: ${{ secrets.PAT }}
           RELEASE_REPO: "ArtisanROM/rom_resources"
           BUILD_TYPE: ${{ github.event.inputs.build_type }}
@@ -124,12 +123,20 @@ jobs:
             VERSION=$(echo "$FILE_NAME" | grep -oP '\d+\.\d+\.\d+')
             BUILD_DATE=$(date +%Y-%m-%d)
 
-            # Always upload to Pixeldrain
-            echo "Uploading $FILE_NAME to Pixeldrain..."
-            RESPONSE=$(curl -s -T "$file" -u :$PIXELDRAIN_API_KEY https://pixeldrain.com/api/file/)
-            FILE_ID=$(echo "$RESPONSE" | jq -r '.id')
-            PIXEL_URL="https://pixeldrain.com/u/$FILE_ID"
-            echo "Pixeldrain URL: $PIXEL_URL"
+            # --- Upload to GoFile ---
+            echo "Fetching best GoFile server..."
+            SERVER_RESPONSE=$(curl -s "https://api.gofile.io/servers")
+            SERVER=$(echo "$SERVER_RESPONSE" | jq -r '.data.servers[0].name')
+
+            if [ -z "$SERVER" ] || [ "$SERVER" = "null" ]; then
+              echo "ERROR: Could not get GoFile server."
+              exit 1
+            fi
+
+            echo "Uploading $FILE_NAME to GoFile server ($SERVER)..."
+            RESPONSE=$(curl -s -F "file=@$file" "https://${SERVER}.gofile.io/contents/uploadfile")
+            GOFILE_URL=$(echo "$RESPONSE" | jq -r '.data.downloadPage')
+            echo "GoFile URL: $GOFILE_URL"
 
             # Split + GitHub Release for release + test
             PART_LINKS=()
