@@ -210,6 +210,26 @@ if [ "$(GET_PROP "$FW_DIR/$TARGET_FIRMWARE_PATH/system/system/build.prop" "ro.bu
     DELETE_FROM_WORK_DIR "system" "system/priv-app/KmxService"
 fi
 
+# Ensure Heatmap support
+# - GKI: check for samsung,sec_auth_sle956681/samsung,sec_auth_ds28e30 kernel drivers
+# - Non-GKI: unsupported
+if [ -f "$WORK_DIR/kernel/vendor_boot.img" ]; then
+    EXTRACT_KERNEL_MODULES
+    if ! grep -q "samsung,sec_auth" "$TMP_DIR/out/vendor_ramdisk"*; then
+        PATCHED=true
+        DELETE_FROM_WORK_DIR "system" "system/bin/heatmap"
+        DELETE_FROM_WORK_DIR "system" "system/etc/init/init.sec-heatmap.rc"
+        DELETE_FROM_WORK_DIR "system" "system/lib64/libectcore.so"
+        DELETE_FROM_WORK_DIR "system" "system/lib64/libparam_A55_250328.so"
+    fi
+else
+    PATCHED=true
+    DELETE_FROM_WORK_DIR "system" "system/bin/heatmap"
+    DELETE_FROM_WORK_DIR "system" "system/etc/init/init.sec-heatmap.rc"
+    DELETE_FROM_WORK_DIR "system" "system/lib64/libectcore.so"
+    DELETE_FROM_WORK_DIR "system" "system/lib64/libparam_A55_250328.so"
+fi
+
 # Ensure KSMBD support in kernel
 # - 4.19.x and below: unsupported
 # - 5.4.x-5.10.x: backport (https://github.com/namjaejeon/ksmbd.git)
@@ -339,6 +359,43 @@ if [ -f "$WORK_DIR/system/system/priv-app/LedCoverService/LedCoverService.apk" ]
             "$MODPATH/ledcover/LedCoverService.apk/0001-Switch-to-ISamsungNfcAdapter-interface.patch"
     fi
 fi
+
+# Upgrade Segmentation models (pre-API 34)
+if [ "$TARGET_PLATFORM_SDK_VERSION" -lt "34" ]; then
+    if grep -q "default_lowtier" "$WORK_DIR/system/system/cameradata/portrait_data/single_bokeh_feature.json" &&
+            [ -f "$WORK_DIR/system/system/cameradata/portrait_data/SRIB_HumanInsSeg_FP16_V008.snf" ]; then
+        PATCHED=true
+        DELETE_FROM_WORK_DIR "system" "system/cameradata/portrait_data/SRIB_HumanInsSeg_FP16_V008.snf"
+        ADD_TO_WORK_DIR "a17xxx" "system" \
+            "system/cameradata/portrait_data/SRIB_BanetLite_FP16_V400.snf" 0 0 644 "u:object_r:system_file:s0"
+        LOG "- Patching /system/system/cameradata/portrait_data/single_bokeh_feature.json"
+        EVAL "sed -i \"0,/HumanInsSeg_FP16_V008/s//BanetLite_FP16_V400/\" \"$WORK_DIR/system/system/cameradata/portrait_data/single_bokeh_feature.json\""
+        EVAL "sed -i \"0,/008/s//400/\" \"$WORK_DIR/system/system/cameradata/portrait_data/single_bokeh_feature.json\""
+        EVAL "sed -i \"0,/QASYMM8/s//FLOAT16/\" \"$WORK_DIR/system/system/cameradata/portrait_data/single_bokeh_feature.json\""
+    fi
+fi
+
+# Pre-API 35
+# - Upgrade MIDAS models
+#
+# Pre-API 36
+# - Update midas_config.json
+if ! grep -q "\"version\": \"4\." "$WORK_DIR/vendor/etc/midas/midas_config.json"; then
+    if [ "$TARGET_PLATFORM_SDK_VERSION" -lt "35" ]; then
+        PATCHED=true
+        DELETE_FROM_WORK_DIR "vendor" "etc/midas"
+        ADD_TO_WORK_DIR "a73xqxx" "vendor" \
+            "etc/midas" 0 2000 755 "u:object_r:vendor_configs_file:s0"
+    fi
+    if [ "$TARGET_PLATFORM_SDK_VERSION" -lt "36" ]; then
+        PATCHED=true
+        ADD_TO_WORK_DIR "$SOURCE_FIRMWARE" "vendor" \
+            "etc/midas/midas_config.json" 0 0 644 "u:object_r:vendor_configs_file:s0"
+    fi
+fi
+
+LOG "- Fixing MIDAS model detection"
+EVAL "sed -i \"s/$TARGET_CODENAME/$SOURCE_CODENAME/g\" \"$WORK_DIR/vendor/etc/midas/midas_config.json\""
 
 # Upgrade Single Take models (pre-API 35)
 if [ "$TARGET_PLATFORM_SDK_VERSION" -lt "35" ]; then
