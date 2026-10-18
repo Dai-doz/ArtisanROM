@@ -1,0 +1,4 @@
+vendor/lib/android.hardware.graphics.allocator-V2-ndk.so 0 0 644 capabilities=0x0
+vendor/lib/android.hardware.graphics.common-V5-ndk.so 0 0 644 capabilities=0x0
+vendor/lib64/android.hardware.graphics.allocator-V2-ndk.so 0 0 644 capabilities=0x0
+vendor/lib64/android.hardware.graphics.common-V5-ndk.so 0 0 644 capabilities=0x0

@@ -1,0 +1,2 @@
+/vendor/lib64 u:object_r:vendor_file:s0
+/vendor/lib64/libsnaplite_native\.so u:object_r:same_process_hal_file:s0

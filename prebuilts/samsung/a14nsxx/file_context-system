@@ -1,0 +1,6 @@
+/system u:object_r:system_file:s0
+/system/lib64 u:object_r:system_lib_file:s0
+/system/lib64/libface_landmark_lite\.arcsoft\.so u:object_r:system_lib_file:s0
+/system/lib64/libFood\.camera\.samsung\.so u:object_r:system_lib_file:s0
+/system/lib64/libFoodDetector\.camera\.samsung\.so u:object_r:system_lib_file:s0
+/system/lib64/libMultiFrameProcessing10\.camera\.samsung\.so u:object_r:system_lib_file:s0

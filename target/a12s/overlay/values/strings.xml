@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="config_defaultAugmentedAutofillService" />
+    <string name="config_defaultContentCaptureService" />
+    <string name="config_defaultTextClassifierPackage" />
+    <string name="config_mainBuiltInDisplayCutout">M 0,0 H -34.13333333333333 V 22.93333333333333 H 34.13333333333333 V 0 H 0 Z @dp</string>
+</resources>

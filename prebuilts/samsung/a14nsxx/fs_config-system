@@ -1,0 +1,6 @@
+system 0 0 755 capabilities=0x0
+system/lib64 0 0 755 capabilities=0x0
+system/lib64/libface_landmark_lite.arcsoft.so 0 0 644 capabilities=0x0
+system/lib64/libFood.camera.samsung.so 0 0 644 capabilities=0x0
+system/lib64/libFoodDetector.camera.samsung.so 0 0 644 capabilities=0x0
+system/lib64/libMultiFrameProcessing10.camera.samsung.so 0 0 644 capabilities=0x0

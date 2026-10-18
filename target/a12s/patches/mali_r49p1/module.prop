@@ -1,0 +1,4 @@
+id=mali_r49p1
+name=Mali r49p1 GPU driver
+author=clangsdorff
+description=Port the A145F Mali-G52 r49p1 userspace driver to the Android 13 (VNDK 33) Exynos 850 vendor.

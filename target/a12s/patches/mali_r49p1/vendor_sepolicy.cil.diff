@@ -1,0 +1,6 @@
+(type vendor_arm_egl_configs_prop)
+(roletype object_r vendor_arm_egl_configs_prop)
+(type vendor_arm_gralloc_prop)
+(roletype object_r vendor_arm_gralloc_prop)
+(allow domain vendor_arm_egl_configs_prop (file (read getattr map open)))
+(allow domain vendor_arm_gralloc_prop (file (read getattr map open)))
